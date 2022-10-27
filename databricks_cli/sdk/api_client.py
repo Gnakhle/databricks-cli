@@ -113,7 +113,10 @@ class ApiClient(object):
 
         parsed_url = urlparse(host)
         scheme = parsed_url.scheme
-        hostname = parsed_url.hostname
+        # this is to allow enterprise customers to specify a custom host if they have implemented a proxy to auth with Databricks
+        if "cloud.databricks.com" in host:
+            hostname = parsed_url.hostname
+
         self.url = "%s://%s/api/" % (scheme, hostname)
         if user is not None and password is not None:
             encoded_auth = (user + ":" + password).encode()
