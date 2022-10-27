@@ -117,7 +117,7 @@ class ApiClient(object):
         if "databricks.com" in host:
             hostname = parsed_url.hostname
         else:
-            hostname = parsed_url.hostname + parsed_url.path
+            hostname = host.replace("https://", '')
 
         self.url = "%s://%s/api/" % (scheme, hostname)
         if user is not None and password is not None:
